@@ -65,4 +65,31 @@ public class ToDoListApp {
         }
         return tasks;
     }
+
+    public static void markTaskAsDone(Scanner scanner, List<ToDo> tasks) {
+        System.out.println("Введите порядковый номер задачи для отметки как выполненной:");
+        String input = scanner.nextLine();
+
+        try {
+            int taskNumber = Integer.parseInt(input) - 1;
+            if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                tasks.get(taskNumber).setDone(true);
+                saveTasksToFile(FILE_JSON, tasks);
+                saveTasksToFile(FILE_BIN, tasks);
+                saveTasksToFile(FILE_XML, tasks);
+                System.out.println("Задача отмечена как выполненная.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Некорректный ввод. Попробуйте снова.");
+        }
+    }
+
+    public static void displayTasks(List<ToDo> tasks) {
+        System.out.println("Список задач:");
+        for (int i = 0; i < tasks.size(); i++) {
+            ToDo task = tasks.get(i);
+            String status = task.isDone() ? "[x]" : "[ ]";
+            System.out.println((i + 1) + "- " + status + " " + task.getTitle());
+        }
+    }
 }

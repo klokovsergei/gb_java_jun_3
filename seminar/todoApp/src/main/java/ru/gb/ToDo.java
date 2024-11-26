@@ -59,5 +59,9 @@ public class ToDo implements Externalizable {
         return isDone;
     }
 
+    public void setDone(boolean flag) {
+        isDone = flag;
+    }
+
     //endregion
 }
